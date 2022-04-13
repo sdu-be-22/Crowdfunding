@@ -18,7 +18,7 @@ def startups(request):
 
     page = 0
     paginator = 0
-    startup_list = Startups.objects.order_by('-pk')
+    startup_list = Startup.objects.order_by('-pk')
     startuppers = UserStartupper.objects.all()
 
     page = request.GET.get('page', 1)
@@ -29,9 +29,9 @@ def startups(request):
         startup = 0
 
         if category == 'All':
-            startup = Startups.objects.order_by('-pk')
+            startup = Startup.objects.order_by('-pk')
         else:
-            startup = Startups.objects.filter(category=category).order_by('-pk')
+            startup = Startup.objects.filter(category=category).order_by('-pk')
 
         startups = list(startup)
 
@@ -80,7 +80,7 @@ def startup_page(request, pk):
         is_authenticated = False
         username = 'not logged in'
 
-    startup = Startups.objects.get(pk=pk)
+    startup = Startup.objects.get(pk=pk)
 
     context = {
         'project': startup,
@@ -88,6 +88,7 @@ def startup_page(request, pk):
         'username': username
     }
     return render(request, 'startup.html', context=context)
+
 
 def add_startup(request):
     user_id = request.user.id
@@ -106,6 +107,6 @@ def add_startup(request):
         accumulated_capital=0
     )
 
-    this_startup = Startups.objects.order_by('-pk')[0]
+    this_startup = Startup.objects.order_by('-pk')[0]
     url = '/startups/project/' + str(this_startup.pk)
     return HttpResponseRedirect(url)

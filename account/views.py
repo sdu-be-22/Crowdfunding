@@ -22,10 +22,16 @@ def myroom(request):
         is_authenticated = True
         user = request.user
         user_id = request.user.id
-        startupper = UserStartupper.objects.get(user_id=user_id)
-        startup_list = Startups.objects.filter(startupper_id=startupper.pk)
-        startup_count = len(startup_list)
-        last_startup_list = startup_list.order_by('-id')[:3]
+        if UserStartupper.objects.filter(user_id=user_id).exists():
+            startupper = UserStartupper.objects.get(user_id=user_id)
+            startup_list = Startup.objects.filter(startupper_id=startupper.pk)
+            startup_count = len(startup_list)
+            last_startup_list = startup_list.order_by('-id')[:3]
+        else:
+            startupper = UserInvestor.objects.get(user_id=user_id)
+            startup_list = Startup.objects.filter(startupper_id=0)
+            startup_count = len(startup_list)
+            last_startup_list = startup_list.order_by('-id')[:3]
 
     context = {
         'user': user,
