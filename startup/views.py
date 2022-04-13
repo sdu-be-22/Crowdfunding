@@ -1,7 +1,7 @@
 
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from startup.models import *
 from account.models import *
@@ -110,3 +110,11 @@ def add_startup(request):
     this_startup = Startup.objects.order_by('-pk')[0]
     url = '/startups/project/' + str(this_startup.pk)
     return HttpResponseRedirect(url)
+
+def replenish_the_balance(request):
+    user_id = request.user.id
+    investor = UserInvestor.objects.filter(user_id=user_id)
+    amount = request.POST['amount']
+    new_amount = investor[0].current_money + int(amount)
+    investor.update(current_money = new_amount)
+    return redirect('myroom')

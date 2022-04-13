@@ -23,24 +23,27 @@ def myroom(request):
         user = request.user
         user_id = request.user.id
         if UserStartupper.objects.filter(user_id=user_id).exists():
-            startupper = UserStartupper.objects.get(user_id=user_id)
-            startup_list = Startup.objects.filter(startupper_id=startupper.pk)
+            person = UserStartupper.objects.get(user_id=user_id)
+            startup_list = Startup.objects.filter(startupper_id=person.pk)
             startup_count = len(startup_list)
             last_startup_list = startup_list.order_by('-id')[:3]
+            user_type = "startupper"
         else:
-            startupper = UserInvestor.objects.get(user_id=user_id)
+            person = UserInvestor.objects.get(user_id=user_id)
             startup_list = Startup.objects.filter(startupper_id=0)
             startup_count = len(startup_list)
             last_startup_list = startup_list.order_by('-id')[:3]
+            user_type = "investor"
 
     context = {
         'user': user,
         'is_authenticated': is_authenticated,
-        'startupper': startupper,
+        'person': person,
         'startup_list': last_startup_list,
-        'startup_count': startup_count
+        'startup_count': startup_count,
+        'user_type': user_type
     }
-    return render(request, 'my_room_startupper.html', context=context)
+    return render(request, 'my_room.html', context=context)
 
 
 def login(request):
