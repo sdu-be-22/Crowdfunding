@@ -76,6 +76,12 @@ def startup_page(request, pk):
     if request.user.is_authenticated:
         is_authenticated = True
         username = request.user.username
+
+        if UserStartupper.objects.filter(user_id=request.user.id).exists():
+            is_investor = False
+        else:
+            is_investor = True
+
     else:
         is_authenticated = False
         username = 'not logged in'
@@ -85,6 +91,7 @@ def startup_page(request, pk):
     context = {
         'project': startup,
         'is_authenticated': is_authenticated,
+        'is_investor': is_investor,
         'username': username
     }
     return render(request, 'startup.html', context=context)
@@ -118,3 +125,25 @@ def replenish_the_balance(request):
     new_amount = investor[0].current_money + int(amount)
     investor.update(current_money = new_amount)
     return redirect('myroom')
+
+def invest_startup(request, pk):
+    user_id = request.user.id
+    investor = UserInvestor.objects.filter(user_id=user_id)
+
+    startup = Startup.objects.get(pk=pk)
+    print(startup.initial_capital)
+
+    if request.method == 'POST':
+        amount = int(request.POST['amount'])
+        accumulated_capital = startup.accumulated_capital
+        investor_money = investor[0].current_money
+
+        if amount > investor_money:
+            print("You don't have enough money")
+        else:
+            new_amount = accumulated_capital + amount
+            Startup.objects.filter(id=startup.id).update(accumulated_capital=new_amount)
+            investor.update(current_money=investor_money - amount)
+
+    url = '/startups/project/' + str(pk)
+    return HttpResponseRedirect(url)
