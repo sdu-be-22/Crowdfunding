@@ -11,7 +11,13 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     else:
-        username = 'not logged in'
+        startup = Startup.objects.order_by('-accumulated_capital')[0]
+        investor = UserInvestor.objects.order_by('-current_money')[0]
+        context = {
+            'startup': startup,
+            'investor': investor
+        }
+        return render(request, 'main_page.html', context=context)
 
     context = {'username': username}
     return render(request, 'index.html', context=context)
@@ -124,5 +130,4 @@ def registerUserStartupper(request):
     context = {'form': form, 'startupper_form': startupper_form}
 
     return render(request, 'register_startupper.html', context)
-
 

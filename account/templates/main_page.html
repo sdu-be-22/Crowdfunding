@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Main page{% endblock %}
+
+{% block header %}
+    <header class="text-gray-600 body-font border-b-2 border-indigo-100">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+              <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl">Crowdfunding</span>
+              </a>
+              <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                <a href="{% url 'startups' %}" class="cursor-pointer mr-5 hover:text-gray-900">Startups</a>
+                <a class="cursor-pointer mr-5 hover:text-gray-900">About us</a>
+                <a class="cursor-pointer mr-5 hover:text-gray-900">Investors</a>
+              </nav>
+                {% if is_authenticated %}
+                    <div class="dropdown inline-block relative">
+                    <button class="bg-indigo-0 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                      <span class="mr-1"> {{username}} </span>
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                    </button>
+                    <ul class="dropdown-menu absolute hidden text-gray-700 w-full">
+                      <li><a class=" bg-gray-100 hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="{% url 'myroom' %}">My Room</a></li>
+                      <li><a class="bg-red-500 hover:bg-red-600 text-white rounded-b-lg py-2 px-4 block whitespace-no-wrap" href="{% url 'logout' %}">Log out</a></li>
+                    </ul>
+                  </div>
+                {% else %}
+                  <a href="{% url 'login' %}" class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0 mr-4">
+                    Log in
+                  </a>
+                  <a class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded text-base text-slate-50 mt-4 md:mt-0">
+                    Sign up
+                  </a>
+                {% endif %}
+            </div>
+          </header>
+{% endblock %}
+
+
+{% block body %}
+<div>
+    <div class="px-4 py-16 mx-auto  md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+  <div class="grid gap-5 row-gap-8 lg:grid-cols-2">
+    <div class="flex flex-col justify-center">
+      <div class="max-w-xl mb-6">
+        <h2 class="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
+        Crowdfunding - <br class="hidden md:block" />   different sides, same goal
+        </h2>
+          Crowdfunding is a platform to realise projects. Posting, sharing projects and help startuppers to get invested. And helping investors with finding projects. Crowdfunding helps make your dreams true.
+          <p class="text-base text-gray-700 md:text-lg">
+        </p>
+      </div>
+      <div class="grid gap-5 row-gap-8 sm:grid-cols-2">
+        <div class="bg-white border-l-4 shadow-sm border-deep-purple-accent-400">
+          <div class="h-full p-5 border border-l-0 rounded-r">
+            <h6 class="mb-2 font-semibold leading-5">
+              Become an Investor
+            </h6>
+            <p class="text-sm text-gray-900">
+                If you want to invest projects and earn to invest more and help others? Become an investor.
+            </p>
+          </div>
+        </div>
+        <div class="bg-white border-l-4 shadow-sm border-deep-purple-accent-400">
+          <div class="h-full p-5 border border-l-0 rounded-r">
+            <h6 class="mb-2 font-semibold leading-5">
+              Become a Startupper
+            </h6>
+            <p class="text-sm text-gray-900">
+              Want to share your ideas and make life easier to others and run own project? Become a startupper.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <img class="object-cover w-full h-56 rounded shadow-lg sm:h-96" src= "/images/test.png" alt="image" />
+    </div>
+  </div>
+</div>
+
+<section class="text-gray-600 body-font ">
+  <div class="container px-20 py-24 mx-auto flex flex-wrap">
+    <h4 class="sm:text-2xl text-1xl text-gray-900 px-20 font-medium title-font mb-1 md:w-2/5">Investor of this month</h4>
+    <div class="md:w-3/5 md:pl-6">
+      <h4 class="sm:text-2xl text-1xl text-gray-900 font-medium title-font mb-2 md:w-2/5">{{ investor.user }}</h4>
+      <p class="leading-relaxed text-base"> Investor of the month is {{ investor.user }}. You can try yourself and your projects. Maybe you are the one who's {{ investor.user }} is going to invest. {{ investor.user }} is choosen as a best of this month. You can be the best next month. Don't be afraid to take risks.</p>
+    </div>
+  </div>
+</section>
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <img alt="image" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="/images/test.png">
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ startup.category }}</h2>
+        <h1 class="text-gray-900 text-3xl title-font font-medium mb-6">{{ startup.title}}</h1>
+        <p class="leading-relaxed">{{ startup.description }}</p>
+        <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+        </div>
+        <div class="flex">
+          <span class="title-font font-medium text-2xl text-gray-900">${{ startup.accumulated_capital }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+  <div class="grid gap-5 row-gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="px-12 text-center sm:px-0">
+      <div class="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full bg-indigo-50 sm:w-12 sm:h-12">
+        <svg class="w-8 h-8 text-deep-purple-accent-400 sm:w-10 sm:h-10" stroke="currentColor" viewBox="0 0 52 52">
+          <polygon stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
+        </svg>
+      </div>
+      <h6 class="mb-2 text-sm font-bold leading-5 tracking-wider uppercase">
+        Efforless
+      </h6>
+      <div class="mb-2 text-gray-700">
+        You don't have to waste your energy to post in sites.
+      </div>
+    </div>
+    <div class="px-12 text-center sm:px-0">
+      <div class="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full bg-indigo-50 sm:w-12 sm:h-12">
+        <svg class="w-8 h-8 text-deep-purple-accent-400 sm:w-10 sm:h-10" stroke="currentColor" viewBox="0 0 52 52">
+          <polygon stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
+        </svg>
+      </div>
+      <h6 class="mb-2 text-sm font-bold leading-5 tracking-wider uppercase">
+        Honesty
+      </h6>
+      <div class="mb-2 text-gray-700">
+        You can freely trust that your information is save.
+      </div>
+    </div>
+    <div class="px-12 text-center sm:px-0">
+      <div class="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full bg-indigo-50 sm:w-12 sm:h-12">
+        <svg class="w-8 h-8 text-deep-purple-accent-400 sm:w-10 sm:h-10" stroke="currentColor" viewBox="0 0 52 52">
+          <polygon stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
+        </svg>
+      </div>
+      <h6 class="mb-2 text-sm font-bold leading-5 tracking-wider uppercase">
+        Simplicity
+      </h6>
+      <div class="mb-2 text-gray-700">
+        Simplicity in functions, in design, in understanding.
+      </div>
+    </div>
+    <div class="px-12 text-center sm:px-0">
+      <div class="flex items-center justify-center w-10 h-10 mx-auto mb-4 rounded-full bg-indigo-50 sm:w-12 sm:h-12">
+        <svg class="w-8 h-8 text-deep-purple-accent-400 sm:w-10 sm:h-10" stroke="currentColor" viewBox="0 0 52 52">
+          <polygon stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" points="29 13 14 29 25 29 23 39 38 23 27 23"></polygon>
+        </svg>
+      </div>
+      <h6 class="mb-2 text-sm font-bold leading-5 tracking-wider uppercase">
+        Quick
+      </h6>
+      <div class="mb-2 text-gray-700">
+        Process is take as less time as ever possible.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+{% endblock %}
