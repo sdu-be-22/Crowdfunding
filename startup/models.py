@@ -1,6 +1,5 @@
 from django.urls import reverse
 
-import account.models
 from account.models import *
 from django.db import models
 
