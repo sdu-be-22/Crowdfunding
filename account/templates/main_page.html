@@ -31,7 +31,7 @@
                   <a href="{% url 'login' %}" class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0 mr-4">
                     Log in
                   </a>
-                  <a class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded text-base text-slate-50 mt-4 md:mt-0">
+                  <a href="{% url 'login' %}" class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded text-base text-slate-50 mt-4 md:mt-0">
                     Sign up
                   </a>
                 {% endif %}
@@ -41,7 +41,7 @@
 
 
 {% block body %}
-<div>
+<div class="w-full">
     <div class="px-4 py-16 mx-auto  md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
   <div class="grid gap-5 row-gap-8 lg:grid-cols-2">
     <div class="flex flex-col justify-center">
@@ -102,8 +102,30 @@
         <p class="leading-relaxed">{{ startup.description }}</p>
         <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
         </div>
-        <div class="flex">
-          <span class="title-font font-medium text-2xl text-gray-900">${{ startup.accumulated_capital }}</span>
+        <span class="title-font mt-10  text-2xl text-gray-900">Already collected:
+          <span class="font-medium text-indigo-600">{{startup.accumulated_capital}}$</span>
+            out of
+          <span class="font-medium text-indigo-600">{{ startup.initial_capital }}$</span></span>
+        <div class="mt-5 pb-5 border-b-2 border-gray-100 mb-5">
+                <div class="flex justify-between mb-1">
+                  <span class="text-base font-medium text-indigo-600 dark:text-white">Collected amount</span>
+                  <span class="text-sm font-medium text-indigo-600 dark:text-white">{{ startup.percentage }}%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                  <div class="bg-indigo-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                       style="
+                              width:
+                                {% if  startup.percentage <= 100 %}
+                                    {{startup.percentage}}%
+                                {% else %}
+                                    100%
+                                {% endif %}
+                             "
+                  >
+                      {{startup.accumulated_capital}}$
+                  </div>
+                </div>
+         </div>
         </div>
       </div>
     </div>

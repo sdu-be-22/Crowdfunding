@@ -11,7 +11,8 @@ def index(request):
     if request.user.is_authenticated:
         username = request.user.username
     else:
-        startup = Startup.objects.order_by('-accumulated_capital')[0]
+        query = "SELECT * FROM startup_startup ORDER by initial_capital, accumulated_capital DESC"
+        startup = Startup.objects.raw(query)[0]
         investor = UserInvestor.objects.order_by('-current_money')[0]
         context = {
             'startup': startup,
