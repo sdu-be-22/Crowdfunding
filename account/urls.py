@@ -8,4 +8,5 @@ urlpatterns = [
     path(r'^logout/$', logout, name='logout'),
     path('register/startupper/', registerUserStartupper, name='registerUserStartupper'),
     path('register/investor/', registerUserInvestor, name='registerUserInvestor'),
+    path('aboutus/', aboutus, name='about_us'),
 ]

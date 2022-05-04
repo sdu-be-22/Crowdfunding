@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Main page{% endblock %}
+
+{% block header %}
+    <header class="text-gray-600 body-font border-b-2 border-indigo-100">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+              <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl">Crowdfunding</span>
+              </a>
+              <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
+                <a href="{% url 'startups' %}" class="cursor-pointer mr-5 hover:text-gray-900">Startups</a>
+                <a class="cursor-pointer mr-5 hover:text-gray-900">About us</a>
+                <a class="cursor-pointer mr-5 hover:text-gray-900">Investors</a>
+              </nav>
+                {% if is_authenticated %}
+                    <div class="dropdown inline-block relative">
+                    <button class="bg-indigo-0 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                      <span class="mr-1"> {{username}} </span>
+                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+                    </button>
+                    <ul class="dropdown-menu absolute hidden text-gray-700 w-full">
+                      <li><a class=" bg-gray-100 hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap" href="{% url 'myroom' %}">My Room</a></li>
+                      <li><a class="bg-red-500 hover:bg-red-600 text-white rounded-b-lg py-2 px-4 block whitespace-no-wrap" href="{% url 'logout' %}">Log out</a></li>
+                    </ul>
+                  </div>
+                {% else %}
+                  <a href="{% url 'login' %}" class="inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0 mr-4">
+                    Log in
+                  </a>
+                  <a href="{% url 'login' %}" class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 focus:outline-none hover:bg-indigo-600 rounded text-base text-slate-50 mt-4 md:mt-0">
+                    Sign up
+                  </a>
+                {% endif %}
+            </div>
+          </header>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="px-4 my-5 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
+  <p class="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase sm:text-center">
+    About Us
+  </p>
+  <div class="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl">
+    <div class="mb-4">
+      <a href="/" aria-label="Article" class="inline-block max-w-lg font-sans text-3xl font-extrabold leading-none tracking-tight text-black transition-colors duration-200 hover:text-deep-purple-accent-700 sm:text-4xl">
+        Crowdfunding
+      </a>
+    </div>
+    <p class="text-base text-gray-700 md:text-lg">
+      is a platform to realize projects. Different sides, same goal. Posting, sharing projects and help startuppers to get invested. And helping investors with finding projects. Crowdfunding helps make your dreams true.
+    </p>
+  </div>
+
+  <div class="px-4 py-10 my-20 mx-auto sm:max-w-xl md:max-w-lg lg:max-w-screen-lg md:px-24 lg:px-8 lg:py-5">
+  <div class="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
+    <div class="grid sm:grid-cols-3">
+      <div class="relative w-full h-48 max-h-full rounded shadow sm:h-auto">
+        <img class="absolute object-cover w-full h-full rounded" src="/images/test.png" alt="Person" />
+      </div>
+      <div class="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
+        <p class="text-lg font-bold">Murat Lyazzat</p>
+        <p class="mb-4 text-xs text-gray-800">Web-developer</p>
+        <p class="mb-4 text-sm tracking-wide text-gray-800">
+          Lorizzle ipsum bling bling sit amizzle, consectetuer adipiscing elit.
+        </p>
+        <div class="flex items-center space-x-3">
+          <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">
+           <img class="h-5" src="/images/telegram (2).png">
+          </a>
+          <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">
+            <img class="h-5" src="/images/instagram.svg.png">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="grid sm:grid-cols-3">
+      <div class="relative w-full h-48 max-h-full rounded shadow sm:h-auto">
+        <img class="absolute object-cover w-full h-full rounded" src="/images/test.png" alt="Person" />
+      </div>
+      <div class="flex flex-col justify-center mt-5 sm:mt-0 sm:p-5 sm:col-span-2">
+        <p class="text-lg font-bold">Zhalmukhanov Adilbek</p>
+        <p class="mb-4 text-xs text-gray-800">Web-developer</p>
+        <p class="mb-4 text-sm tracking-wide text-gray-800">
+          Bacon ipsum dolor sit amet salami jowl corned beef, andouille flank.
+        </p>
+        <div class="flex items-center space-x-3">
+          <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">
+            <img class="h-5" src="/images/telegram (2).png">
+          </a>
+          <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">
+            <img class="h-5" src="/images/instagram.svg.png">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+{% endblock %}

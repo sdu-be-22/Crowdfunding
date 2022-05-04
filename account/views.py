@@ -132,3 +132,6 @@ def registerUserStartupper(request):
 
     return render(request, 'register_startupper.html', context)
 
+def aboutus(request):
+
+    return render(request, 'about_us.html')
