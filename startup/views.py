@@ -81,9 +81,9 @@ def startup_page(request, pk):
             is_investor = False
         else:
             is_investor = True
-
     else:
         is_authenticated = False
+        is_investor = False
         username = 'not logged in'
 
     startup = Startup.objects.get(pk=pk)
