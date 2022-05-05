@@ -18,8 +18,8 @@
               </a>
               <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
                 <a href="{% url 'startups' %}" class="cursor-pointer mr-5 hover:text-gray-900">Startups</a>
-                <a class="cursor-pointer mr-5 hover:text-gray-900">About us</a>
-                <a class="cursor-pointer mr-5 hover:text-gray-900">Investors</a>
+                <a href="{% url 'about_us' %}" class="cursor-pointer mr-5 hover:text-gray-900">About us</a>
+                <a href="{% url 'investors' %}" class="cursor-pointer mr-5 hover:text-gray-900">Investors</a>
               </nav>
                 {% if is_authenticated %}
                     <div class="dropdown inline-block relative">
