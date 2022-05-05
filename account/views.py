@@ -30,12 +30,16 @@ def myroom(request):
             startup_count = len(startup_list)
             last_startup_list = startup_list.order_by('-id')[:3]
             user_type = "startupper"
+            form = AddStartup()
         else:
             person = UserInvestor.objects.get(user_id=user_id)
-            startup_list = Startup.objects.filter(startupper_id=0)
+            # startup_list = Startup.objects.filter(investor=person)
+            sql_query = "SELECT startup_investing.id as id, startup_startup.title, startup_startup.description, startup_id as pk, image FROM startup_startup JOIN startup_investing ON startup_startup.id = startup_investing.startup_id WHERE startup_investing.investor_id = %s ORDER BY id DESC;" % person.id
+            startup_list = Startup.objects.raw(sql_query)
             startup_count = len(startup_list)
-            last_startup_list = startup_list.order_by('-id')[:3]
+            last_startup_list = startup_list[:3]
             user_type = "investor"
+            form = 0
 
     context = {
         'user': user,
@@ -43,7 +47,8 @@ def myroom(request):
         'person': person,
         'startup_list': last_startup_list,
         'startup_count': startup_count,
-        'user_type': user_type
+        'user_type': user_type,
+        'form': form
     }
     return render(request, 'my_room.html', context=context)
 

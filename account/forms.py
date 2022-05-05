@@ -61,6 +61,7 @@ class ExtendedUserCreationForm(UserCreationForm):
         return user
 
 
+
 class UserStartupperForm(ModelForm):
     class Meta:
         model = UserStartupper
@@ -70,6 +71,7 @@ class UserStartupperForm(ModelForm):
             'phone':  forms.TextInput(attrs={'class': 'mt-1 mb-5 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
             'gender': forms.TextInput(attrs={'class': 'mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'})
         }
+
 
 class UserInvestorForm(ModelForm):
     class Meta:
@@ -86,8 +88,8 @@ class AddStartup(ModelForm):
         model = startup.models.Startup
         fields = ('title', 'description', 'category', 'initial_capital', 'image')
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
-            'description': forms.TextInput(attrs={'class': 'mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
-            'category': forms.SelectDateWidget(years=range(1960, 2022), attrs={'class': 'mt-1 mb-5 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
-            'initial_capital': forms.TextInput(attrs={'class': 'mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'})
+            'title': forms.TextInput(attrs={'class': 'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
+            'description': forms.Textarea(attrs={'class': 'form-control block h-24 w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
+            'category': forms.Select(attrs={'class': 'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'}),
+            'initial_capital': forms.TextInput(attrs={'class': 'form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'})
         }

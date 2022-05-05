@@ -1,10 +1,11 @@
-
+import image as image
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
 from startup.models import *
 from account.models import *
+from account.forms import *
 
 
 # Create your views here.
@@ -98,21 +99,32 @@ def startup_page(request, pk):
 
 
 def add_startup(request):
+    # user_id = request.user.id
+    # startupper = UserStartupper.objects.get(user_id=user_id)
+    # title = request.POST.get('title')
+    # description = request.POST.get('description')
+    # category = request.POST.get('category')
+    # initial_capital = request.POST.get('initial_capital')
+    # image = request.POST.get('image')
+    #
+    # Startup(
+    #     startupper=startupper,
+    #     title=title,
+    #     description=description,
+    #     category=category,
+    #     initial_capital=initial_capital,
+    #     accumulated_capital=0,
+    #     image=image
+    # ).save()
+
     user_id = request.user.id
     startupper = UserStartupper.objects.get(user_id=user_id)
-    title = request.POST.get('title')
-    description = request.POST.get('description')
-    category = request.POST.get('category')
-    initial_capital = request.POST.get('initial_capital')
-    image = request.POST.get('image')
-
-    startupper.startups_set.create(
-        title=title,
-        description=description,
-        category=category,
-        initial_capital=initial_capital,
-        accumulated_capital=0
-    )
+    if request.method == 'POST':
+        form = AddStartup(request.POST, request.FILES)
+        if form.is_valid():
+            startup = form.save(commit=False)
+            startup.startupper = startupper
+            startup.save()
 
     this_startup = Startup.objects.order_by('-pk')[0]
     url = '/startups/project/' + str(this_startup.pk)

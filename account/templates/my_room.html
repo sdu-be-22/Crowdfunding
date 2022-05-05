@@ -13,13 +13,13 @@
               <h3 class="text-white text-[64px] font-bold">Hi <span class="text-amber-300">{{user.first_name}}</span>!</h3>
                 {% if user_type == "startupper" %}
                   <p class="text-amber-300 text-4xl">Startupper</p>
-                  <p class="text-white text-xl">You have {{startup_count}} startups</p>
+                  <p class="text-white text-xl">You have <span class="font-bold text-amber-300">{{startup_count}}</span> startups</p>
                   <p class="text-white text-xl mt-5">Birthday: <span class="font-bold">{{person.birth_date}}</span></p>
                   <p class="text-white text-xl">Phone nubber: <span class="font-bold">{{person.phone}}</span></p>
                   <p class="text-white text-xl">Gender: <span class="font-bold">{{person.gender}}</span></p>
                 {% else %}
                   <p class="text-amber-300 text-4xl">Investor</p>
-                  <p class="text-white text-xl">You have invested {{startup_count}} startups</p>
+                  <p class="text-white text-xl">You have invested <span class="font-bold text-amber-300">{{startup_count}}</span> investments</p>
                   <p class="text-white text-xl mt-5">Birthday: <span class="font-bold">{{person.birth_date}}</span></p>
                   <p class="text-white text-xl">Phone number: <span class="font-bold">{{person.phone}}</span></p>
                   <p class="text-white text-xl">Gender: <span class="font-bold">{{person.gender}}</span></p>
@@ -58,7 +58,7 @@
             {% if startup_list %}
               <div class="flex justify-between items-end">
                 <h2 class="text-4xl font-bold text-indigo-700">My last startups</h2>
-                <a href="#" class="underline hover:text-indigo-600">View all startups</a>
+                <a href="#" class="underline hover:text-indigo-600"></a>
               </div>
 
               <section class="mt-5">
@@ -85,75 +85,77 @@
       </section>
             {% if user_type == "startupper" %}
                 <div id="menu"  class="absolute top-0 left-0 right-0 flex  z-10 justify-center items-center hidden">
-  <div class="w-full h-full bg-gray-900 bg-opacity-80 top-0 fixed sticky-0 ">
-    <div class="2xl:container  2xl:mx-auto py-24 px-4 md:px-28 flex justify-center items-center">
-      <div class="w-200 md:w-auto dark:bg-gray-800 relative flex flex-col justify-center items-center bg-white py-16 px-4 md:px-24 xl:py-24 xl:px-36">
-        <div class="mt-5">
+                    <div class="w-full h-full bg-gray-900 bg-opacity-80 top-0 fixed sticky-0 ">
+                        <div class="container  2xl:mx-auto px-4 md:px-28 flex justify-center items-center">
+                          <div class="w-200 mt-20 md:w-auto dark:bg-gray-800 relative flex flex-col justify-center items-center bg-white py-16 px-20">
+                            <div class="mt-2">
 
-          <form action=" {% url 'add_startup' %}" method="post" enctype="multipart/form-datet">
-            {% csrf_token %}
-            {{ form.media }}
-            {{ form.as_p }}
-                <div class="form-group mb-6">
-                  <label for="title" class="font-medium mb-3 text-indigo-600">Title</label>
-                  <input type="text" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none"
-                         id="title"
-                         name="title"
-                         placeholder="Title">
-                </div>
+                              <form action=" {% url 'add_startup' %}" method="post" enctype="multipart/form-data" >
+                                {% csrf_token %}
+                                    <div class="form-group mb-6">
+                                      <label class="font-medium mb-3 text-indigo-600">Title</label>
+                                      {{ form.title }}
+                                    </div>
 
-                <div class="form-group mb-6">
-                  <label for="description" class="font-medium mb-3 text-indigo-600">Description</label>
-                  <textarea
-                  class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none "
-                  id="description"
-                  name="description"
-                  rows="3"
-                  placeholder="Description"
-                ></textarea>
-                </div>
+                                    <div class="form-group mb-6">
+                                      <label class="font-medium mb-3 text-indigo-600">Description</label>
+                                      {{ form.description }}
+                                    </div>
 
-                <div class="form-group mb-6">
-                  <label class="font-medium mb-3 text-indigo-600">Category</label>
-                  <select id="category" name="category"
-                          class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none">
-                            <option value="IT">IT</option>
-                            <option value="Ecology">Ecology</option>
-                            <option value="Electronic">Electronic</option>
-                            <option value="Health">Health</option>
-                            <option value="Education">Education</option>
-                            <option value="Gaming">Gaming</option>
-                            <option value="Small Business">Small Business</option>
-                            <option value="Other" selected>Other</option>
-                        </select>
-                </div>
+                                    <div class="form-group mb-6">
+                                      <label class="font-medium mb-3 text-indigo-600">Category</label>
+                                      {{ form.category }}
+                                    </div>
+                                  <div class="form-group mb-6">
+                                      <label  class="font-medium mb-3 text-indigo-600">Initial capital</label>
+                                      {{ form.initial_capital }}
+                                  </div>
 
-                <div class="form-group mb-6">
-                  <label for="initial_capital" class="font-medium mb-3 text-indigo-600">Initial capital</label>
-                  <input type="number" class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none"
-                         id="initial_capital"
-                         name="initial_capital"
-                         placeholder="Initial capital">
-                </div>
-                <button type="submit"
-                        id="add"
-                        name="add"
-                        class=" w-full px-6 py-2.5 bg-indigo-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out">
-                  Add
-                </button>
-          </form>
-        </div>
 
-        <button onclick="showMenu()" class="text-gray-800 dark:text-gray-400 absolute top-8 right-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" aria-label="close">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+                                  <div class="flex justify-center flex-col  mb-6">
+                                    <label class="font-medium mb-3 text-indigo-600">Startup image</label>
+                                    <div class="max-w-2xl rounded-lg border border-solid border-gray-300 bg-white">
+                                        <div class="m-4">
+                                            <div class="flex items-center justify-center w-full">
+                                                <label
+                                                    class="flex flex-col w-full h-32 border-4 border-indigo-400 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                                    <div class="flex flex-col items-center justify-center pt-7">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                        </svg>
+                                                        <p class="pt-1 text-sm tracking-wider text-gray-500">
+                                                            Attach a image</p>
+                                                    </div>
+                                                    <div class="opacity-0">
+                                                        {{ form.image }}
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <button type="submit"
+                                            id="add"
+                                            name="add"
+                                            class=" w-full px-6 py-2.5 bg-indigo-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out">
+                                      Add
+                                    </button>
+                              </form>
+                            </div>
+
+                            <button onclick="showMenu()" class="text-gray-800 dark:text-gray-400 absolute top-5 right-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800" aria-label="close">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
             {% else %}
                 <div id="menu"  class="absolute top-0 left-0 right-0 flex  z-10 justify-center items-center hidden">
                   <div class="w-full h-full bg-gray-900 bg-opacity-80 top-0 fixed sticky-0 ">

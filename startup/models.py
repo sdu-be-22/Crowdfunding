@@ -10,7 +10,7 @@ class Startup(models.Model):
     description = models.TextField(blank=True)
     date_uploaded = models.DateTimeField(auto_now_add=True)
     initial_capital = models.IntegerField()
-    accumulated_capital = models.IntegerField()
+    accumulated_capital = models.IntegerField(default=0)
     image = models.ImageField(null=True, blank=True, upload_to="images/")
 
 
