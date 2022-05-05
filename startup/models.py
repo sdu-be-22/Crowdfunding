@@ -39,3 +39,13 @@ class Startup(models.Model):
 
     def get_absolute_url(self):
         return reverse('project', kwargs={'startup_id': self.pk})
+
+
+class Investing(models.Model):
+    investor = models.ForeignKey(UserInvestor, on_delete=models.CASCADE)
+    startup = models.ForeignKey(Startup, on_delete=models.CASCADE)
+    investment_amount = models.IntegerField()
+    investment_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.startup.title

@@ -144,6 +144,9 @@ def invest_startup(request, pk):
             new_amount = accumulated_capital + amount
             Startup.objects.filter(id=startup.id).update(accumulated_capital=new_amount)
             investor.update(current_money=investor_money - amount)
+            Investing(investor = investor[0],
+                      startup = startup,
+                      investment_amount = amount).save()
 
     url = '/startups/project/' + str(pk)
     return HttpResponseRedirect(url)
