@@ -8,20 +8,15 @@ from startup.models import *
 from account.models import *
 
 def index(request):
-    if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        query = "SELECT * FROM startup_startup ORDER by initial_capital, accumulated_capital DESC"
-        startup = Startup.objects.raw(query)[0]
-        investor = UserInvestor.objects.order_by('-current_money')[0]
-        context = {
-            'startup': startup,
-            'investor': investor
-        }
-        return render(request, 'main_page.html', context=context)
+    query = "SELECT * FROM startup_startup ORDER by initial_capital, accumulated_capital DESC"
+    startup = Startup.objects.raw(query)[0]
+    investor = UserInvestor.objects.order_by('-current_money')[0]
+    context = {
+        'startup': startup,
+        'investor': investor
+    }
+    return render(request, 'main_page.html', context=context)
 
-    context = {'username': username}
-    return render(request, 'index.html', context=context)
 
 
 def myroom(request):
@@ -62,11 +57,7 @@ def login(request):
             if user is not None:
                 if user.is_active:
                     auth.login(request, user)
-                    return HttpResponse('Authenticated successfully')
-                else:
-                    return HttpResponse('Disabled account')
-            else:
-                return HttpResponse('Invalid login')
+                    return HttpResponseRedirect("/")
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})

@@ -9,10 +9,10 @@ from startup.models import Startup
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        widget = forms.TextInput(attrs={'class': 'mt-1 mb-5 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'})
+        widget = forms.TextInput(attrs={'class': 'mt-1 mb-5 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded  focus:text-gray-700 focus:bg-white focus:border-indigo-600 '})
     )
     password = forms.CharField(
-        widget = forms.PasswordInput(attrs={'class': 'mt-1 form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-indigo-600 focus:outline-none'})
+        widget = forms.PasswordInput(attrs={'class': 'mt-1 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded  focus:text-gray-700 focus:bg-white focus:border-indigo-600 '})
     )
 
 
