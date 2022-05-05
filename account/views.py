@@ -132,4 +132,10 @@ def aboutus(request):
     return render(request, 'about_us.html')
 
 def investors(request):
-    return render(request, 'investors.html')
+    sql_query = "SELECT row_number() OVER(ORDER BY investings) as id, * FROM( SELECT username,strftime('%d.%m.%Y', date_joined) as date, first_name, last_name, count(*) as investings FROM account_userinvestor JOIN auth_user, startup_investing ON auth_user.id = account_userinvestor.user_id AND startup_investing.investor_id = account_userinvestor.id WHERE STRFTIME('%m', investment_date, 'localtime') = STRFTIME('%m', 'now', 'localtime') GROUP BY account_userinvestor.id ORDER BY investings LIMIT 10)"
+    investors = UserInvestor.objects.raw(sql_query)
+    for investor in investors:
+        print(investor.id)
+    context = {'investors': investors}
+
+    return render(request, 'Investors.html', context)
