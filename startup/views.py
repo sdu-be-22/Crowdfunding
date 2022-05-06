@@ -20,7 +20,6 @@ def startups(request):
     page = 0
     paginator = 0
     startup_list = Startup.objects.order_by('-pk')
-    startuppers = UserStartupper.objects.all()
 
     page = request.GET.get('page', 1)
     if request.GET.get('filter_category'):
@@ -66,7 +65,78 @@ def startups(request):
 
     context = {
         'startups': startup_list,
-        'startuppers': startuppers,
+        'is_authenticated': is_authenticated,
+        'username': username
+    }
+    return render(request, 'startups.html', context=context)
+
+
+def my_startups(request):
+    if request.user.is_authenticated:
+        is_authenticated = True
+        username = request.user.username
+    else:
+        is_authenticated = False
+        username = 'not logged in'
+
+    page = 0
+    paginator = 0
+
+    user_id = request.user.id
+    if UserStartupper.objects.filter(user_id=user_id).exists():
+        person = UserStartupper.objects.get(user_id=user_id)
+        startup_list = Startup.objects.filter(startupper_id=person.pk).order_by('-pk')
+    else:
+        person = UserInvestor.objects.get(user_id=user_id)
+        sql_query = "SELECT startup_investing.id as id, startup_startup.title, startup_startup.description, startup_id as pk, image FROM startup_startup JOIN startup_investing ON startup_startup.id = startup_investing.startup_id WHERE startup_investing.investor_id = %s ORDER BY id DESC;" % person.id
+        startup_list = Startup.objects.raw(sql_query)
+
+    # startup_list = Startup.objects.order_by('-pk')
+
+    page = request.GET.get('page', 1)
+    if request.GET.get('filter_category'):
+        category = request.GET.get('filter_category')
+        collected_amount = request.GET.get('collected_amount')
+
+        startup = 0
+
+        if category == 'All':
+            startup = Startup.objects.order_by('-pk')
+        else:
+            startup = Startup.objects.filter(category=category).order_by('-pk')
+
+        startups = list(startup)
+
+        startup_list = []
+        if collected_amount == '1':
+            for i in startups:
+                startup_list.append(i)
+        elif collected_amount == '2':
+            for i in startups:
+                if i.percentage() > 0:
+                    startup_list.append(i)
+        elif collected_amount == '3':
+            for i in startups:
+                if i.percentage() >= 25:
+                    startup_list.append(i)
+        elif collected_amount == '4':
+            for i in startups:
+                if i.percentage() >= 50:
+                    startup_list.append(i)
+        elif collected_amount == '5':
+            for i in startups:
+                if i.percentage() >= 75:
+                    startup_list.append(i)
+
+
+    paginator = Paginator(startup_list, 5)
+    try:
+        startup_list = paginator.page(page)
+    except PageNotAnInteger:
+        startup_list = paginator.page(1)
+
+    context = {
+        'startups': startup_list,
         'is_authenticated': is_authenticated,
         'username': username
     }
@@ -99,24 +169,6 @@ def startup_page(request, pk):
 
 
 def add_startup(request):
-    # user_id = request.user.id
-    # startupper = UserStartupper.objects.get(user_id=user_id)
-    # title = request.POST.get('title')
-    # description = request.POST.get('description')
-    # category = request.POST.get('category')
-    # initial_capital = request.POST.get('initial_capital')
-    # image = request.POST.get('image')
-    #
-    # Startup(
-    #     startupper=startupper,
-    #     title=title,
-    #     description=description,
-    #     category=category,
-    #     initial_capital=initial_capital,
-    #     accumulated_capital=0,
-    #     image=image
-    # ).save()
-
     user_id = request.user.id
     startupper = UserStartupper.objects.get(user_id=user_id)
     if request.method == 'POST':
@@ -129,6 +181,7 @@ def add_startup(request):
     this_startup = Startup.objects.order_by('-pk')[0]
     url = '/startups/project/' + str(this_startup.pk)
     return HttpResponseRedirect(url)
+
 
 def replenish_the_balance(request):
     user_id = request.user.id
