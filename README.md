@@ -28,7 +28,7 @@ Our project was built to join investors and startuppers in one common place, so 
 - [Zhalmukhanov Adilbek](https://github.com/zhalmukhanov) | 200103468@stu.sdu.edu.kz
 
 ## Goal
-Help people to realize their dreams easily and effiecently and present it in the best way that is possible. Make people sure that they can realize their dreams.
+Help people to realize their dreams easily and effiecently and present it in the best way that is possible. Make people sure that we do it in secury way.
 
 
 ## Features
