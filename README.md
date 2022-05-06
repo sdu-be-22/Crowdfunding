@@ -17,11 +17,28 @@
 </p>
 
 
-## About 
-On our website, **investors** voluntarily pool their money or resources to support startups of other people or organizations. And **startupper**  place their startup and indicate the required amount.
+## Description of project
+Our project was built to join investors and startuppers in one common place, so each can easily find what they need. As an **investors** client can find projects that they are interested in and help startuppers with capital. As an **startupper**  user will add their startup ideas, so they find investors to realize their projects.
 
+## Mentor
+-  [Bissenbay Dauletbayev](b.dauletbayev@sdu.edu.kz) | b.dauletbayev@sdu.edu.kz
+-  
 ## Team members
 - [Murat Lyazzat](https://github.com/mlyazzat) | 200103016@stu.sdu.edu.kz
 - [Zhalmukhanov Adilbek](https://github.com/zhalmukhanov) | 200103468@stu.sdu.edu.kz
 
+## Goal
+Help people to realize their dreams easily and effiecently and present it in the best way that is possible.
+
+## Features
+- Easy and comfort design
+- Quick performance
+
+## Project structure
+- Login/Registering page
+- Main page
+- Startups page
+- Investors page
+- My room for startuppers/investors.
+- 'About us' page
 
