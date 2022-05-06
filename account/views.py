@@ -9,7 +9,8 @@ from account.models import *
 
 def index(request):
     query = "SELECT * FROM startup_startup ORDER by initial_capital, accumulated_capital DESC;"
-    startup = Startup.objects.raw(query)[0]
+    if Startup.objects.raw(query)[0]:
+        startup = Startup.objects.raw(query)[0]
     investor = UserInvestor.objects.order_by('-current_money')[0]
     context = {
         'startup': startup,
