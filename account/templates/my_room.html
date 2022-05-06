@@ -65,16 +65,17 @@
                   <div class="container m-auto px-6 text-gray-500 md:px-12 xl:px-0">
                       <div class="mx-auto grid gap-6 md:w-3/4 lg:w-full lg:grid-cols-3">
                             {% for startup in startup_list %}
-                                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                                <div class="bg-white  rounded-2xl shadow-2xl overflow-hidden">
                                     <div class="px-8 pt-12">
                                         <div class="mb-8 space-y-4">
-                                            <h3 class="text-2xl font-bold text-indigo-600">{{startup.title}}</h3>
+                                            <h3 class="text-2xl font-bold text-indigo-600">{{startup.title|truncatewords:10}}</h3>
                                             <p class="mb-6">{{startup.description|truncatewords:20}}</p>
                                             <a href="{% url 'project' startup.pk %}" class="block underline text-indigo-600">Know more ></a>
                                         </div>
                                     </div>
-
-                                    <img src="/images/{{ startup.image }}" class="w-full rounded-b-2xl" alt="illustration" loading="lazy" width="900" height="600">
+                                    <div class="h-48 w-full rounded-b-2xl">
+                                        <img src="/images/{{ startup.image }}" class="w-full" alt="illustration" loading="lazy" width="900" height="600">
+                                    </div>
                                 </div>
                             {% endfor %}
                       </div>
