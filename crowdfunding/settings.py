@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q--))8vb00o_5!#z=@mnxh77rj%^7nw9d@z3$&6wif^z2ijje2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['crowdfunding-sdu.herokuapp.com']
 
@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'ciba',
-    }
+}
 }
 
 
